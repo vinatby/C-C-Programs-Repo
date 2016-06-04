@@ -6,42 +6,37 @@
 
 // longest string length and individual character along with words with lengths using array indices
 int Countword(int A[], int n);
-//int CountSentChar(int B[]);
 int LargestSent(int C[], int n);
+int WordCount(int D[], int n);
 
 int main()
-{	int i, j, k, c, wordlen, sentlen, blank;
-	int asciiTAB[ASCIILIM], SentChar[MAXSEN], NumSent[MAXALLOWED] ;
+{	int i, j, k, c, wordlen, sentlen, blank, words;
+	int asciiTAB[ASCIILIM], SentChar[MAXSEN], NumSent[MAXALLOWED], WordChar[MAXSEN] ;
 
-	for(i=0; i < MAXSEN-1; i++)
-	{	SentChar[i]=0;
-	}
-	for(i=0; i < ASCIILIM-1; i++)
-	{	asciiTAB[i]=0;
-	}
-	for(i=0; i<MAXALLOWED-1; i++)
-	{	NumSent[i]=0;
-	}
+	for(i=0; i < MAXSEN-1; i++)				//
+	{	SentChar[i]=0;					//
+	}							//
+	for(i=0; i < ASCIILIM-1; i++)				//
+	{	asciiTAB[i]=0;					// Memory Allocation
+	}							//
+	for(i=0; i<MAXALLOWED-1; i++)				//
+	{	NumSent[i]=0;					//
+	}							//
+	for(i=0; i<MAXSEN-1; i++)				//
+	{	WordChar[i]=0;					//
+	}							//
 	
 	c = getchar();
 	for(j=0; c!= EOF; j++)
 	{	for( i=0; c!= '\n'; i++)                     // here we do not have to worry about EOF because \n comes before \0 always
 		{	SentChar[i]=c;
-			
-			// Words part
-			for ( k = 0; c==' ' || c == '\t' ; k++)
-			{	blank++;
-				c = getchar();
-				i++;
-				if (blank < 2)		
-				{	break;
-				}
-			}
-
-			putchar(c);
-			// end words part
+			//putchar(c);
 			c = getchar();
 		}
+		putchar(c);
+		SentChar[i+1] = '\n';
+		words = WordCount(SentChar, i+2);
+		printf("%dth line has %d words \n",j+1, words);
 		printf("Recent line has %d characters \n", i+1);
 		sentlen = i+1;
 		NumSent[j]=sentlen;
@@ -69,16 +64,28 @@ int LargestSent(int C[], int n)
 	}
 return max;
 }
-/*
-int Countword(int A[], int n)
-{	int i, j;
-	
-	for(i =0; i<n; i++)
-	{	for(j = 0; A[i] != '\n' || A[i] != '\t' || A[i] != ' '; j++)
-		{	j+= 1;
-		}
+
+int WordCount(int A[], int n)
+{	int i, j, k ,l;
+	int words[n-1];
+
+	for(i =0; i<n-1; i++)
+	{	words[i] =0;
+		printf("words value %d at %d \n", words[i], i);
 	}
-return j;
+	printf("done");					// Debugging resolved
+	for( l =0; A[j] !='\n' || A[j] != EOF; j++ )
+		for(i = 0, j = 0 ; i<n , A[i] != ' ' || A[i] != '\t'|| A[i] != '\n' ; i++, j++)
+		{	words[i] = A[j];			
+		}
+		if( i < 1)
+			break;
+		words[i+1] =' ';
+		for(k = 0; words[k] != ' '; k++)
+		{	printf("words are %c \n", words[k]);
+		}
+		l++;
+return l;
 }	
 
-*/
+
