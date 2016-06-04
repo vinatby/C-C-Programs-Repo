@@ -78,8 +78,6 @@ int WordCount(int A[], int n)
 		for(i = 0, j = 0 ; i<n , A[i] != ' ' || A[i] != '\t'|| A[i] != '\n' ; i++, j++)
 		{	words[i] = A[j];			
 		}
-		if( i < 1)
-			break;
 		words[i+1] =' ';
 		for(k = 0; words[k] != ' '; k++)
 		{	printf("words are %c \n", words[k]);
